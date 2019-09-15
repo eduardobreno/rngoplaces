@@ -25,6 +25,8 @@ interface IMaker {
   description: string;
 }
 let isBack = false;
+let firstTime = true;
+
 export const getPlacesNearby = async (lat: number, lng: number) => {
   let markers = [];
   try {
@@ -102,9 +104,9 @@ export const searchByRegion = async (coords: any, setMarkers: any) => {
   setMarkers(result);
 };
 
-let firstTime = true;
 const Home = () => {
   const [currPosition, setCurrPosition] = useState();
+  const [mapPosition, setMapPosition] = useState();
   const [searchInNewPlace, setSearchInNewPlace] = useState(false);
   const mapViewRef = useRef(null);
   const carouselRef = useRef(null);
@@ -141,9 +143,9 @@ const Home = () => {
             style={style.btnFindMore}
             onPress={() => {
               setSearchInNewPlace(false);
-              searchByRegion(currPosition, setMarkers);
+              searchByRegion(mapPosition, setMarkers);
             }}>
-            <Text>Descobrir o que tem aqui?</Text>
+            <Text>{I18n.t("findHere")}</Text>
           </Button>
           <Button
             full
@@ -152,7 +154,7 @@ const Home = () => {
             onPress={() => {
               isBack = true;
               setSearchInNewPlace(false);
-              getPosition(setCurrPosition, setMarkers);
+              getPosition(setMapPosition, setMarkers);
             }}>
             <Image
               style={{ width: 20, height: 20 }}
@@ -166,16 +168,20 @@ const Home = () => {
           //@ts-ignore
           mapViewRef.current = e;
         }}
+        initialRegion={currPosition}
+        region={mapPosition}
+        onPanDrag={e => {
+          firstTime = false;
+        }}
         onRegionChangeComplete={e => {
           if (!firstTime) {
             setSearchInNewPlace(true);
             setMarkers([]);
+            setMapPosition(e);
+            // setCurrPosition(e);
           }
-          firstTime = false;
-          setCurrPosition(e);
         }}
-        style={style.maps}
-        region={currPosition}>
+        style={style.maps}>
         {currPosition && (
           <Marker
             key="user"
@@ -199,7 +205,7 @@ const Home = () => {
           itemHeight={200}
           loop={false}
           onSnapToItem={item => {
-            console.log("disparou");
+            firstTime = true;
             //@ts-ignore
             mapViewRef.current.animateCamera(
               goToCoordinate(markers[item].coordinate),

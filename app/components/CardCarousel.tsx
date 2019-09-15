@@ -30,7 +30,7 @@ export const CardCarousel = (
           )}
           {!url && (
             <Image
-              source={require("app/assets/images/no-image.jpg")}
+              source={require("app/assets/images/no-image.png")}
               style={{ width: 200, height: 200 }}
             />
           )}
