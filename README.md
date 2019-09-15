@@ -6,7 +6,7 @@
 
 1. [Installation](#installation)
 2. [Run](#run)
-3. [Code structure](#code-structure)
+3. [Tests](#tests)
 4. [Dependencies](#dependencies)
 5. [Other infos](#other-infos)
 
@@ -42,11 +42,13 @@
 - `npm run android` ou abra o projeto `.\android` no Android Studio
 - `npm run ios` ou abra o projeto `rngoplaces.xcworkspace` na pasta `.\ios` no Xcode
 
-<a name="code-structure"></a>
+## Test
 
-## Code structure
+<a name="tests"></a>
 
-- WIP
+#### To test:
+
+- `yarn test`
 
 <a name="dependencies"></a>
 
@@ -66,3 +68,4 @@
 ## Other informations
 
 - Imagem de fundo da tela inicial retirado de: https://www.pexels.com/photo/map-atlas-south-america-52502/
+- Projeto testado em emulador e Smartphone Android.

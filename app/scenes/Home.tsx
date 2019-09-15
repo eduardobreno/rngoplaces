@@ -191,11 +191,7 @@ const Home = () => {
         }}
         style={style.maps}>
         {currPosition && (
-          <Marker
-            key="user"
-            coordinate={currPosition}
-            image={require("app/assets/images/location.png")}
-          />
+          <Marker key="user" coordinate={currPosition} pinColor="blue" />
         )}
         <MarkerList markers={markers} />
       </MapView>
