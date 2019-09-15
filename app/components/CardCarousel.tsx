@@ -36,7 +36,7 @@ export const CardCarousel = (
           )}
         </CardItem>
         <CardItem style={{ height: 50 }}>
-          <Text>{item.title}</Text>
+          <Text numberOfLines={2}>{item.title}</Text>
         </CardItem>
       </Card>
     </TouchableOpacity>

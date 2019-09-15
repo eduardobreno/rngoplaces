@@ -6,6 +6,6 @@ export default {
   wait: "Aguarde...",
   error: "Erro",
   failToFindPlacesNearby: "Falha ao localizar lugares próximos",
-  cantFindYourPosition: "Não conseguimos descobrir usa posição!",
-  findHere: "Descobrir o que tem aqui?"
+  cantFindYourPosition: "Não conseguimos descobrir sua posição!",
+  findHere: "Pesquisar nesta área"
 };

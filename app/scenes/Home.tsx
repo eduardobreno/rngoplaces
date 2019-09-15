@@ -153,7 +153,7 @@ const Home = () => {
             style={style.btnResetPosition}
             onPress={() => {
               isBack = true;
-              setSearchInNewPlace(false);
+              setSearchInNewPlace(true);
               getPosition(setMapPosition, setMarkers);
             }}>
             <Image
