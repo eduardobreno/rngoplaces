@@ -1,21 +1,20 @@
-# Shhare it
+# RNGoPlaces
 
-This is a WIP project: A app to share medias using firebase from google
+[Invillia] - Projeto React Native utilizando API do Google Places
 
 ## Index
 
 1. [Installation](#installation)
 2. [Run](#run)
 3. [Code structure](#code-structure)
-4. [Lint](#lint)
-5. [Dependencies](#dependencies)
-6. [Other infos](#other-infos)
+4. [Dependencies](#dependencies)
+5. [Other infos](#other-infos)
 
 <a name="installation"></a>
 
 ## Installation
 
-#### Programas and libs used:
+#### Programas e bibliotecas usedas:
 
 1. JDK 8
 2. react-native-cli: 2.0.1
@@ -28,7 +27,7 @@ This is a WIP project: A app to share medias using firebase from google
 
 #### Enviroment:
 
-- https://facebook.github.io/react-native/docs/getting-started (tab Building Projects with Native Code)
+- https://facebook.github.io/react-native/docs/getting-started (aba Building Projects with Native Code)
 
 #### Install project dependeces:
 
@@ -40,15 +39,8 @@ This is a WIP project: A app to share medias using firebase from google
 
 #### To run:
 
-- `npm run android` or open the project file `.\android` on Android Studio
-- `npm run ios` or open the project file `shhareit.xcworkspace` on folder `.\ios` on Xcode
-
-In order to run app, you'll need valid GoogleService-Info.plist and google-services.json files. The xcode/android project contains a fake plist files without real values, but can be replaced with real plist files. To get your own GoogleService-Info.plist/google-services.json files:
-
-Go to the Firebase Console
-Create a new Firebase project, if you don't already have one
-Create a new Firebase app with the app's bundle identifier (e.g. br.com.ejstudio.apps.shhareit)
-Download the resulting GoogleService-Info.plist/google-services.json and replace the appropriate dummy plist file (e.g. in android/app/google-services.json or ios/GoogleService-Info.plist);
+- `npm run android` ou abra o projeto `.\android` no Android Studio
+- `npm run ios` ou abra o projeto `rngoplaces.xcworkspace` na pasta `.\ios` no Xcode
 
 <a name="code-structure"></a>
 
@@ -56,11 +48,7 @@ Download the resulting GoogleService-Info.plist/google-services.json and replace
 
 - WIP
 
-<a name="lint"></a>
-
-## Lint
-
-- WIP
+* WIP
   <a name="dependencies"></a>
 
 ## Dependencies
@@ -77,4 +65,4 @@ Download the resulting GoogleService-Info.plist/google-services.json and replace
 
 ## Other informations
 
-- This project is for study only
+- TODO
