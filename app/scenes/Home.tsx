@@ -12,6 +12,7 @@ import { calculateBetween } from "app/helpers/distance";
 import { goToCoordinate } from "app/helpers/maps";
 import { askDefaultPermission } from "app/services/api/permissionAPI.ts";
 import { CardCarousel } from "app/components/CardCarousel";
+import keyMaps from "app/resources/keyMaps";
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
   "window"
@@ -33,7 +34,7 @@ export const getPlacesNearby = async (lat: number, lng: number) => {
         params: {
           location: `${lat},${lng}`,
           radius: "1000",
-          key: "AIzaSyC5jV5-dbllskGs0N11oEfHG5hHr8jKEFg"
+          key: keyMaps
         }
       }
     );
@@ -75,9 +76,7 @@ export const getPosition = async (setCurrPosition: any, setMarkers: any) =>
       });
 
       const result = await getPlacesNearby(coords.latitude, coords.longitude);
-      const sortedResult = result.sort(
-        (a: any, b: any) => a.distance - b.distance
-      );
+      result.sort((a: any, b: any) => a.distance - b.distance);
       setMarkers(result);
     },
     error => {

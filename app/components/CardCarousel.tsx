@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity, Image } from "react-native";
 import { Card, CardItem } from "native-base";
 import { goToCoordinate } from "app/helpers/maps";
+import keyMaps from "app/resources/keyMaps";
 
 export const CardCarousel = (
   { item, index }: any,
@@ -12,7 +13,7 @@ export const CardCarousel = (
   let url = undefined;
   url =
     photos &&
-    `https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=${photos[0].photo_reference}&key=AIzaSyC5jV5-dbllskGs0N11oEfHG5hHr8jKEFg`;
+    `https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=${photos[0].photo_reference}&key=${keyMaps}`;
   return (
     <TouchableOpacity
       onPress={() => {
