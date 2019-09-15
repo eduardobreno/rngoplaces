@@ -35,7 +35,7 @@ export const CardCarousel = (
             />
           )}
         </CardItem>
-        <CardItem>
+        <CardItem style={{ height: 50 }}>
           <Text>{item.title}</Text>
         </CardItem>
       </Card>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Alert, Dimensions, Text } from "react-native";
-import { Toast } from "native-base";
+import { View, Alert, StyleSheet, Dimensions, Text, Image } from "react-native";
+import { Toast, Button } from "native-base";
 
 import Carousel from "react-native-snap-carousel";
 import Geolocation from "@react-native-community/geolocation";
@@ -24,7 +24,7 @@ interface IMaker {
   title: string;
   description: string;
 }
-
+let isBack = false;
 export const getPlacesNearby = async (lat: number, lng: number) => {
   let markers = [];
   try {
@@ -74,10 +74,11 @@ export const getPosition = async (setCurrPosition: any, setMarkers: any) =>
         latitudeDelta: 0.02,
         longitudeDelta: 0.02
       });
-
-      const result = await getPlacesNearby(coords.latitude, coords.longitude);
-      result.sort((a: any, b: any) => a.distance - b.distance);
-      setMarkers(result);
+      if (!isBack) {
+        const result = await getPlacesNearby(coords.latitude, coords.longitude);
+        result.sort((a: any, b: any) => a.distance - b.distance);
+        setMarkers(result);
+      }
     },
     error => {
       Alert.alert(I18n.t("error"), I18n.t("cantFindYourPosition"));
@@ -95,8 +96,16 @@ export const MarkerList = ({ markers }: any) =>
     />
   ));
 
+export const searchByRegion = async (coords: any, setMarkers: any) => {
+  const result = await getPlacesNearby(coords.latitude, coords.longitude);
+  result.sort((a: any, b: any) => a.distance - b.distance);
+  setMarkers(result);
+};
+
+let firstTime = true;
 const Home = () => {
   const [currPosition, setCurrPosition] = useState();
+  const [searchInNewPlace, setSearchInNewPlace] = useState(false);
   const mapViewRef = useRef(null);
   const carouselRef = useRef(null);
   const [markers, setMarkers] = useState<Array<IMaker> | []>([]);
@@ -122,21 +131,50 @@ const Home = () => {
         flexDirection: "row",
         backgroundColor: "pink",
         alignItems: "flex-end",
-        paddingBottom: 20
+        paddingBottom: 15
       }}>
+      {searchInNewPlace && (
+        <>
+          <Button
+            full
+            info
+            style={style.btnFindMore}
+            onPress={() => {
+              setSearchInNewPlace(false);
+              searchByRegion(currPosition, setMarkers);
+            }}>
+            <Text>Descobrir o que tem aqui?</Text>
+          </Button>
+          <Button
+            full
+            info
+            style={style.btnResetPosition}
+            onPress={() => {
+              isBack = true;
+              setSearchInNewPlace(false);
+              getPosition(setCurrPosition, setMarkers);
+            }}>
+            <Image
+              style={{ width: 20, height: 20 }}
+              source={require("app/assets/images/reset-position.png")}
+            />
+          </Button>
+        </>
+      )}
       <MapView
         ref={e => {
           //@ts-ignore
           mapViewRef.current = e;
         }}
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: -1
+        onRegionChangeComplete={e => {
+          if (!firstTime) {
+            setSearchInNewPlace(true);
+            setMarkers([]);
+          }
+          firstTime = false;
+          setCurrPosition(e);
         }}
+        style={style.maps}
         region={currPosition}>
         {currPosition && (
           <Marker
@@ -147,29 +185,56 @@ const Home = () => {
         )}
         <MarkerList markers={markers} />
       </MapView>
-
-      <Carousel
-        ref={(e: any) => {
-          //@ts-ignore
-          carouselRef.current = e;
-        }}
-        layout="default"
-        data={markers}
-        renderItem={item => CardCarousel(item, carouselRef, mapViewRef)}
-        sliderWidth={viewportWidth}
-        itemWidth={200}
-        loop={false}
-        onSnapToItem={item => {
-          console.log("disparou");
-          //@ts-ignore
-          mapViewRef.current.animateCamera(
-            goToCoordinate(markers[item].coordinate),
-            { duration: 500 }
-          );
-        }}
-      />
+      {!searchInNewPlace && (
+        <Carousel
+          ref={(e: any) => {
+            //@ts-ignore
+            carouselRef.current = e;
+          }}
+          layout="default"
+          data={markers}
+          renderItem={item => CardCarousel(item, carouselRef, mapViewRef)}
+          sliderWidth={viewportWidth}
+          itemWidth={200}
+          itemHeight={200}
+          loop={false}
+          onSnapToItem={item => {
+            console.log("disparou");
+            //@ts-ignore
+            mapViewRef.current.animateCamera(
+              goToCoordinate(markers[item].coordinate),
+              { duration: 500 }
+            );
+          }}
+        />
+      )}
     </View>
   );
 };
+
+const style = StyleSheet.create({
+  btnFindMore: {
+    position: "absolute",
+    left: "27%",
+    top: "10%",
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  btnResetPosition: {
+    position: "absolute",
+    right: "5%",
+    bottom: "10%",
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  maps: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    zIndex: -1
+  }
+});
 
 export default Home;
