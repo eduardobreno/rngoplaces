@@ -48,21 +48,18 @@
 
 - WIP
 
-* WIP
-  <a name="dependencies"></a>
+<a name="dependencies"></a>
 
 ## Dependencies
 
-- ESLint:
-- TypeScript:
-
+- ESLint/TSLint
+- TypeScript
 - i18n: https://github.com/fnando/i18n-js
 - Routes: https://reactnavigation.org/
-
 - UI: https://nativebase.io/
 
 <a name="other-infos"></a>
 
 ## Other informations
 
-- TODO
+- Imagem de fundo da tela inicial retirado de: https://www.pexels.com/photo/map-atlas-south-america-52502/

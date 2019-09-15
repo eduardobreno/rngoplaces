@@ -15,6 +15,10 @@ jest.mock("react-native-permissions", () => ({
   checkMultiple: jest.fn().mockResolvedValue({ location: "authorized" })
 }));
 
+jest.mock("react-native-localize", () => ({
+  getLocales: jest.fn()
+}));
+
 jest.mock("@react-native-community/geolocation", () => ({
   getCurrentPosition: jest.fn((successPosition, errorPosition) => {
     successPosition(() => {});

@@ -7,6 +7,7 @@ import MapView, { Marker, LatLng, AnimatedRegion } from "react-native-maps";
 import axios from "axios";
 import { calculateBetween } from "app/helpers/distance";
 import { askDefaultPermission } from "app/services/api/permissionAPI.ts";
+import I18n from "app/helpers/i18n";
 
 interface IMaker {
   id: string;
@@ -48,7 +49,7 @@ export const getPlacesNearby = async (lat: number, lng: number) => {
       };
     });
   } catch (e) {
-    Alert.alert("Erro", "Falha ao localizar lugares próximos");
+    Alert.alert(I18n.t("error"), I18n.t("failToFindPlacesNearby"));
   }
   return markers;
 };
@@ -68,8 +69,7 @@ export const getPosition = async (setCurrPosition: any, setMarkers: any) =>
       setMarkers(result);
     },
     error => {
-      Alert.alert("Erro", "Não conseguimos descobrir usa posição!");
-      // console.log(error.code, error.message);
+      Alert.alert(I18n.t("error"), I18n.t("cantFindYourPosition"));
     },
     { enableHighAccuracy: true, timeout: 15000, maximumAge: 1000 }
   );
@@ -92,7 +92,8 @@ const Home = () => {
     askDefaultPermission()
       .then(e => {
         Toast.show({
-          text: "Aguarde..."
+          text: I18n.t("wait"),
+          duration: 2000
         });
         getPosition(setCurrPosition, setMarkers);
       })
