@@ -4,11 +4,16 @@
 
 ## Index
 
+0. [Release](#release)
 1. [Installation](#installation)
-2. [Run](#run)
-3. [Tests](#tests)
-4. [Dependencies](#dependencies)
-5. [Other infos](#other-infos)
+1. [Run](#run)
+1. [Tests](#tests)
+1. [Dependencies](#dependencies)
+1. [Other infos](#other-infos)
+
+<a name="release"></a>
+
+- APK: https://github.com/eduardobreno/rngoplaces/releases/tag/0.0.1
 
 <a name="installation"></a>
 
