@@ -1,7 +1,9 @@
 import React from "react";
 import AppNavigator from "./navigation/AppNavigator";
-import { StyleProvider, Root } from "native-base";
-import { StatusBar } from "react-native";
+import { Root } from "native-base";
+import { StatusBar, YellowBox } from "react-native";
+
+YellowBox.ignoreWarnings(["Warning: componentWillReceiveProps"]);
 
 function App() {
   return (

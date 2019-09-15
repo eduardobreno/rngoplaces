@@ -58,6 +58,9 @@
 - Routes: https://reactnavigation.org/
 - UI: https://nativebase.io/
 
+- Maps: https://github.com/react-native-community/react-native-maps
+- Carousel: https://github.com/archriss/react-native-snap-carousel
+
 <a name="other-infos"></a>
 
 ## Other informations

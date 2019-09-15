@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from "react";
-import { View, Alert } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { View, Alert, Dimensions, Text } from "react-native";
 import { Toast } from "native-base";
 
+import Carousel from "react-native-snap-carousel";
 import Geolocation from "@react-native-community/geolocation";
 import MapView, { Marker, LatLng, AnimatedRegion } from "react-native-maps";
 import axios from "axios";
-import { calculateBetween } from "app/helpers/distance";
-import { askDefaultPermission } from "app/services/api/permissionAPI.ts";
+
 import I18n from "app/helpers/i18n";
+import { calculateBetween } from "app/helpers/distance";
+import { goToCoordinate } from "app/helpers/maps";
+import { askDefaultPermission } from "app/services/api/permissionAPI.ts";
+import { CardCarousel } from "app/components/CardCarousel";
+
+const { width: viewportWidth, height: viewportHeight } = Dimensions.get(
+  "window"
+);
 
 interface IMaker {
   id: string;
@@ -43,6 +51,7 @@ export const getPlacesNearby = async (lat: number, lng: number) => {
           latitude: item.geometry.location.lat,
           longitude: item.geometry.location.lng
         },
+        photos: item.photos,
         title: item.name,
         description: item.vicinity,
         distance: distance
@@ -66,6 +75,9 @@ export const getPosition = async (setCurrPosition: any, setMarkers: any) =>
       });
 
       const result = await getPlacesNearby(coords.latitude, coords.longitude);
+      const sortedResult = result.sort(
+        (a: any, b: any) => a.distance - b.distance
+      );
       setMarkers(result);
     },
     error => {
@@ -86,6 +98,8 @@ export const MarkerList = ({ markers }: any) =>
 
 const Home = () => {
   const [currPosition, setCurrPosition] = useState();
+  const mapViewRef = useRef(null);
+  const carouselRef = useRef(null);
   const [markers, setMarkers] = useState<Array<IMaker> | []>([]);
 
   useEffect(() => {
@@ -108,10 +122,22 @@ const Home = () => {
         flex: 1,
         flexDirection: "row",
         backgroundColor: "pink",
-        alignItems: "center"
+        alignItems: "flex-end",
+        paddingBottom: 20
       }}>
       <MapView
-        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
+        ref={e => {
+          //@ts-ignore
+          mapViewRef.current = e;
+        }}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: -1
+        }}
         region={currPosition}>
         {currPosition && (
           <Marker
@@ -122,6 +148,27 @@ const Home = () => {
         )}
         <MarkerList markers={markers} />
       </MapView>
+
+      <Carousel
+        ref={(e: any) => {
+          //@ts-ignore
+          carouselRef.current = e;
+        }}
+        layout="default"
+        data={markers}
+        renderItem={item => CardCarousel(item, carouselRef, mapViewRef)}
+        sliderWidth={viewportWidth}
+        itemWidth={200}
+        loop={false}
+        onSnapToItem={item => {
+          console.log("disparou");
+          //@ts-ignore
+          mapViewRef.current.animateCamera(
+            goToCoordinate(markers[item].coordinate),
+            { duration: 500 }
+          );
+        }}
+      />
     </View>
   );
 };

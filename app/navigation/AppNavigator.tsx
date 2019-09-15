@@ -4,7 +4,7 @@ import Home from "app/scenes/Home";
 
 const AppNavigator = createSwitchNavigator(
   { Welcome, Home },
-  { initialRouteName: "Welcome" }
+  { initialRouteName: "Home" }
 );
 
 export default createAppContainer(AppNavigator);
