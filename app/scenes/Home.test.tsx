@@ -4,7 +4,12 @@ import { mount, shallow } from "enzyme";
 import MockAsyncStorage from "mock-async-storage";
 import axios from "axios";
 
-import Home, { MarkerList, getPosition, getPlacesNearby } from "./Home";
+import Home, {
+  MarkerList,
+  getPosition,
+  getPlacesNearby,
+  searchByRegion
+} from "./Home";
 jest.mock("View", () => "view");
 jest.mock("axios");
 jest.mock("native-base", () => ({
@@ -63,6 +68,7 @@ describe("Home", () => {
     const setCurrPosition = jest.fn();
     const setMarkers = jest.fn();
 
+    await getPosition(setCurrPosition, setMarkers);
     await getPosition(setCurrPosition, setMarkers);
 
     expect(wrapper).toMatchSnapshot();
@@ -147,5 +153,11 @@ describe("Home", () => {
     //     )
 
     expect(markerList).toMatchSnapshot();
+  });
+
+  it("searchByRegion works", async () => {
+    const setMarkers = jest.fn();
+    await searchByRegion(0, setMarkers);
+    expect(wrapper).toMatchSnapshot();
   });
 });

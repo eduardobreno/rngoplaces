@@ -1,5 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Alert, StyleSheet, Dimensions, Text, Image } from "react-native";
+import {
+  View,
+  Alert,
+  StyleSheet,
+  Dimensions,
+  Text,
+  Image,
+  Platform
+} from "react-native";
 import { Toast, Button } from "native-base";
 
 import Carousel from "react-native-snap-carousel";
@@ -25,7 +33,7 @@ interface IMaker {
   description: string;
 }
 let isBack = false;
-let firstTime = true;
+let isNotDragging = true;
 
 export const getPlacesNearby = async (lat: number, lng: number) => {
   let markers = [];
@@ -171,10 +179,10 @@ const Home = () => {
         initialRegion={currPosition}
         region={mapPosition}
         onPanDrag={e => {
-          firstTime = false;
+          isNotDragging = false;
         }}
         onRegionChangeComplete={e => {
-          if (!firstTime) {
+          if (!isNotDragging) {
             setSearchInNewPlace(true);
             setMarkers([]);
             setMapPosition(e);
@@ -205,7 +213,7 @@ const Home = () => {
           itemHeight={200}
           loop={false}
           onSnapToItem={item => {
-            firstTime = true;
+            isNotDragging = true;
             //@ts-ignore
             mapViewRef.current.animateCamera(
               goToCoordinate(markers[item].coordinate),

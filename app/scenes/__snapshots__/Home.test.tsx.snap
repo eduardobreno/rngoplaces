@@ -7,3 +7,5 @@ exports[`Home renders Marker 1`] = `ReactWrapper {}`;
 exports[`Home renders MarkersList 1`] = `ShallowWrapper {}`;
 
 exports[`Home renders correctly 1`] = `ReactWrapper {}`;
+
+exports[`Home searchByRegion works 1`] = `ReactWrapper {}`;
