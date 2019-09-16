@@ -11,12 +11,28 @@
 1. [Dependencies](#dependencies)
 1. [Other infos](#other-infos)
 
+## Checklist
+
+### Requisitos Mínimos
+
+- [x] Tela de boas vindas para o usuário.
+- [x] Exibir o mapa e mostrar a posição do usuário.
+- [x] Mostrar lugares próximos do usuário.
+- [x] Exibir as informações do local ao clicar nele.
+- [x] Teste unitário do componente principal.
+
+### Requisitos adicionais
+
+- [x] Carrosel de lugares ordenados por proximidade.
+- [x] Buscar lugares em outras partes do mapa ao arrastar.
+
+## Release
+
 <a name="release"></a>
 
 - APK: https://github.com/eduardobreno/rngoplaces/releases/tag/0.0.1
 
-- ![](gifs/demo1.gif)
-- ![](gifs/demo2.gif)
+![](gifs/demo1.gif) ![](gifs/demo2.gif)
 
 <a name="installation"></a>
 
@@ -64,7 +80,8 @@
 
 - ESLint/TSLint
 - TypeScript
-- i18n: https://github.com/fnando/i18n-js
+- Jest
+- i18n : https://github.com/fnando/i18n-js
 - Routes: https://reactnavigation.org/
 - UI: https://nativebase.io/
 
