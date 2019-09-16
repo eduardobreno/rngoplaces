@@ -18,7 +18,6 @@ import axios from "axios";
 import I18n from "app/helpers/i18n";
 import { calculateBetween } from "app/helpers/distance";
 import { goToCoordinate } from "app/helpers/maps";
-import { askDefaultPermission } from "app/services/api/permissionAPI.ts";
 import { CardCarousel } from "app/components/CardCarousel";
 import keyMaps from "app/resources/keyMaps";
 
@@ -121,17 +120,11 @@ const Home = () => {
   const [markers, setMarkers] = useState<Array<IMaker> | []>([]);
 
   useEffect(() => {
-    askDefaultPermission()
-      .then(e => {
-        Toast.show({
-          text: I18n.t("wait"),
-          duration: 2000
-        });
-        getPosition(setCurrPosition, setMarkers);
-      })
-      .catch(e => {
-        // console.log(e);
-      });
+    Toast.show({
+      text: I18n.t("wait"),
+      duration: 2000
+    });
+    getPosition(setCurrPosition, setMarkers);
   }, []);
 
   return (
@@ -151,6 +144,7 @@ const Home = () => {
             style={style.btnFindMore}
             onPress={() => {
               setSearchInNewPlace(false);
+              isNotDragging = true;
               searchByRegion(mapPosition, setMarkers);
             }}>
             <Text>{I18n.t("findHere")}</Text>
@@ -186,6 +180,7 @@ const Home = () => {
             setSearchInNewPlace(true);
             setMarkers([]);
             setMapPosition(e);
+            isNotDragging = true;
             // setCurrPosition(e);
           }
         }}

@@ -15,6 +15,9 @@
 
 - APK: https://github.com/eduardobreno/rngoplaces/releases/tag/0.0.1
 
+- ![](gifs/demo1.gif)
+- ![](gifs/demo2.gif)
+
 <a name="installation"></a>
 
 ## Installation

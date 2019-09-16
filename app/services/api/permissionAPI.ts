@@ -48,7 +48,14 @@ async function alertForPermission(status: string, permission: string) {
           style: "cancel"
         },
         status == "undetermined"
-          ? { text: "OK", onPress: () => requestPermission(permission) }
+          ? {
+              text: "OK",
+              onPress: async () => {
+                const result = await requestPermission(permission);
+                console.log("aceitou", result);
+                return Promise.resolve(result);
+              }
+            }
           : Platform.OS == "ios"
           ? {
               text: "Abrir configuração",
@@ -56,7 +63,10 @@ async function alertForPermission(status: string, permission: string) {
             }
           : {
               text: "Ok",
-              onPress: () => requestPermission(permission)
+              onPress: async () => {
+                const result = await requestPermission(permission);
+                return Promise.resolve(result);
+              }
             }
       ]
     );

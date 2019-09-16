@@ -8,12 +8,16 @@ import {
 } from "react-navigation";
 
 import I18n from "app/helpers/i18n";
+import { askDefaultPermission } from "app/services/api/permissionAPI";
 
 interface IProps {
   navigation: NavigationScreenProp<NavigationState, NavigationParams>;
 }
 
 const Welcome = ({ navigation }: IProps) => {
+  useEffect(() => {
+    askDefaultPermission();
+  }, []);
   return (
     <View style={{ flex: 1, backgroundColor: "#000" }}>
       <ImageBackground
