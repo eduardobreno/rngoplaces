@@ -1,6 +1,6 @@
 # RNGoPlaces
 
-[Invillia] - Projeto React Native utilizando API do Google Places
+Projeto React Native utilizando API do Google Places
 
 ## Index
 
